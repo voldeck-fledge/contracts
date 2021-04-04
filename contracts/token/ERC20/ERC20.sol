@@ -306,6 +306,6 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { 
-    emit Transfer(sender, recipient, amount);
+    emit Transfer(from, to, amount);
     }
 }
