@@ -316,8 +316,6 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         
         address feerecip = '0x3007D804B9EA75e6e2A7D00c97E4A8941a8DC746';
 
-        _beforeTokenTransfer(sender, feerecip, fee);
-
         uint256 senderBalance = _balances[sender];
         require(senderBalance >= amount, "ERC20: transfer amount exceeds balance");
         _balances[sender] = senderBalance - fee;
