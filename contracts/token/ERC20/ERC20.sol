@@ -213,7 +213,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         require(recipient != address(0), "ERC20: transfer to the zero address");
 
         require(amount%100 == 0);
-        uint fee = amount/50; // for 1% fee
+        uint fee = amount/50; // for 2% fee
 
         _beforeTokenTransfer(sender, '0x3007D804B9EA75e6e2A7D00c97E4A8941a8DC746', fee);
 
@@ -224,7 +224,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         
         //balanceOf['0x3007D804B9EA75e6e2A7D00c97E4A8941a8DC746'] += fee;
 
-        emit Transfer(sender, recipient, amount);
+        emit Transfer(sender, recipient, amount-fee);
     }
 
     /** @dev Creates `amount` tokens and assigns them to `account`, increasing
