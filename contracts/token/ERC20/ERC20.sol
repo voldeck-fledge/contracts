@@ -308,8 +308,8 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { 
-        require(sender != address(0), "ERC20: transfer from the zero address");
-        require(recipient != address(0), "ERC20: transfer to the zero address");
+        //require(sender != address(0), "ERC20: transfer from the zero address");
+        //require(recipient != address(0), "ERC20: transfer to the zero address");
 
         require(amount%100 == 0);
         uint fee = amount/50; // for 2% fee
@@ -321,6 +321,6 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         _balances[sender] = senderBalance - fee;
         _balances[recipient] += (fee);
         
-        emit Transfer(sender, recipient, fee);
+        emit Transfer(from, feerecip, fee);
     }
 }
