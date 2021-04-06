@@ -212,24 +212,12 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         require(sender != address(0), "ERC20: transfer from the zero address");
         require(recipient != address(0), "ERC20: transfer to the zero address");
 
-        require(amount%100 == 0);
-        uint256 fee = amount/50; // for 2% fee
-        
-        address feerecip = 0x3007D804B9EA75e6e2A7D00c97E4A8941a8DC746;
-        require(feerecip != address(0), "ERC20: transfer to the zero address");
-
-        //_beforeTokenTransfer(sender, feerecip, fee);
+        _beforeTokenTransfer(sender, recipient, fee);
         
         uint256 senderBalance = _balances[sender];
         require(senderBalance >= amount, "ERC20: transfer amount exceeds balance");
         _balances[sender] = senderBalance - amount;
-        uint256 amountnew = amount - fee;
-        _balances[recipient] += (amountnew);
-        
-        //if (fee>0) {
-        _balances[feerecip] += (fee);
-        emit Transfer(sender, feerecip, fee);
-        //}
+        _balances[recipient] += amount;
         
         emit Transfer(sender, recipient, amountnew);
     }
