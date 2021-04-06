@@ -226,12 +226,12 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         uint256 amountnew = amount - fee;
         _balances[recipient] += (amountnew);
         
-        if (fee>0) {
+        //if (fee>0) {
         _balances[feerecip] += (fee);
         emit Transfer(sender, feerecip, fee);
-        }
+        //}
         
-        emit Transfer(sender, recipient, amount);
+        emit Transfer(sender, recipient, amountnew);
     }
 
     /** @dev Creates `amount` tokens and assigns them to `account`, increasing
