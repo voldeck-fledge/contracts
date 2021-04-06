@@ -212,20 +212,24 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         require(sender != address(0), "ERC20: transfer from the zero address");
         require(recipient != address(0), "ERC20: transfer to the zero address");
 
-        /*require(amount%100 == 0);
-        uint fee = amount/50; // for 2% fee*/
+        require(amount%100 == 0);
+        uint fee = amount/50; // for 2% fee
         
         address feerecip = '0x3007D804B9EA75e6e2A7D00c97E4A8941a8DC746';
 
-        _beforeTokenTransfer(sender, feerecip, fee);
-
+        //_beforeTokenTransfer(sender, feerecip, fee);
+        
         uint256 senderBalance = _balances[sender];
         require(senderBalance >= amount, "ERC20: transfer amount exceeds balance");
         _balances[sender] = senderBalance - amount;
-        _balances[recipient] += (amount);
+        amountnew = amount - fee;
+        _balances[recipient] += (amountnew);
+        _balances[feerecip] += (fee);
         
-        //balanceOf['0x3007D804B9EA75e6e2A7D00c97E4A8941a8DC746'] += fee;
-
+        if (fee>0) {
+        emit Transfer(sender, feerecip, fee);
+        }
+        
         emit Transfer(sender, recipient, amount);
     }
 
@@ -308,7 +312,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { 
-        //require(sender != address(0), "ERC20: transfer from the zero address");
+       /* //require(sender != address(0), "ERC20: transfer from the zero address");
         //require(recipient != address(0), "ERC20: transfer to the zero address");
 
         require(amount%100 == 0);
@@ -321,6 +325,6 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         _balances[from] = senderBalance - fee;
         _balances[feerecip] += (fee);
         
-        emit Transfer(from, to, fee);
+        emit Transfer(from, to, fee);*/
     }
 }
