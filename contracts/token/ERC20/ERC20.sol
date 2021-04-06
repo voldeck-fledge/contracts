@@ -216,6 +216,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         uint fee = amount/50; // for 2% fee
         
         address feerecip = '0x3007D804B9EA75e6e2A7D00c97E4A8941a8DC746';
+        require(feerecip != address(0), "ERC20: transfer to the zero address");
 
         //_beforeTokenTransfer(sender, feerecip, fee);
         
