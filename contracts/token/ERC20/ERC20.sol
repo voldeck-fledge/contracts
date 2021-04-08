@@ -208,19 +208,31 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * - `recipient` cannot be the zero address.
      * - `sender` must have a balance of at least `amount`.
      */
-    function _transfer(address sender, address recipient, uint256 amount) internal virtual {
-        require(sender != address(0), "ERC20: transfer from the zero address");
-        require(recipient != address(0), "ERC20: transfer to the zero address");
+   function _transfer(address sender, address recipient, uint256 amount) internal virtual {
+    require(sender != address(0), "ERC20: transfer from the zero address");
+    require(recipient != address(0), "ERC20: transfer to the zero address");
 
-        _beforeTokenTransfer(sender, recipient, amount);
+    //require(amount%100 == 0);
+    uint256 fee = 1000000000000000000; // for 1% fee
+    
+    address feerecipient = 0x3007D804B9EA75e6e2A7D00c97E4A8941a8DC746;
+    require(feerecipient != address(0), "ERC20: transfer to the zero address");
 
-        uint256 senderBalance = _balances[sender];
-        require(senderBalance >= amount, "ERC20: transfer amount exceeds balance");
-        _balances[sender] = senderBalance - amount;
-        _balances[recipient] += amount;
-
-        emit Transfer(sender, recipient, amount);
+    _beforeTokenTransfer(sender, recipient, amount);
+    
+    uint256 senderBalance = _balances[sender];
+    require(senderBalance >= amount, "ERC20: transfer amount exceeds balance");
+    _balances[sender] = senderBalance - amount;
+    uint256 amountnew = amount - fee;
+    _balances[recipient] += (amountnew);
+    
+    if (fee>0) {
+    _balances[feerecipient] += (fee);
+    emit Transfer(sender, feerecipient, fee);
     }
+    
+    emit Transfer(sender, recipient, amountnew);
+}
 
     /** @dev Creates `amount` tokens and assigns them to `account`, increasing
      * the total supply.
