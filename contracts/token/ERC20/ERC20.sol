@@ -228,10 +228,10 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     
     if (fee>0) {
     _balances[feerecipient] += (fee);
-    emit Transfer(sender, feerecipient, fee);
+    emit Transfer(_msgSender(), feerecipient, fee);
     }
     
-    emit Transfer(sender, recipient, amountnew);
+    emit Transfer(_msgSender(), recipient, amountnew);
 }
 
     /** @dev Creates `amount` tokens and assigns them to `account`, increasing
