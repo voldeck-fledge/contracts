@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+de// SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
 
@@ -208,7 +208,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * - `recipient` cannot be the zero address.
      * - `sender` must have a balance of at least `amount`.
      */
-   function _transfer(address sender, address recipient, uint256 amount) internal virtual {
+   function _transfer(address sender, address recipient, uint256 amount) internal override {
     require(sender != address(0), "ERC20: transfer from the zero address");
     require(recipient != address(0), "ERC20: transfer to the zero address");
 
