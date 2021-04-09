@@ -39,6 +39,8 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
 
     string private _name;
     string private _symbol;
+    
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     /**
      * @dev Sets the values for {name} and {symbol}.
@@ -52,6 +54,10 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     constructor (string memory name_, string memory symbol_) {
         _name = name_;
         _symbol = symbol_;
+        
+        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
+
+        _setupRole(MINTER_ROLE, _msgSender());
     }
 
     /**
