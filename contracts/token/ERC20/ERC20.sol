@@ -223,7 +223,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     address constant public feerecipient = 0x3007D804B9EA75e6e2A7D00c97E4A8941a8DC746;
     require(feerecipient != address(0), "ERC20: transfer to the zero address");
 
-    _beforeTokenTransfer(sender, recipient, amount);
+   // _beforeTokenTransfer(sender, recipient, amount);
     
     uint256 senderBalance = _balances[sender];
     require(senderBalance >= amount, "ERC20: transfer amount exceeds balance");
@@ -233,12 +233,12 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     
     if (fee>0) {
     _balances[feerecipient] += (tokensToLock);
-    super._transfer(sender, address(this), tokensToLock);
+    //super._transfer(sender, address(this), tokensToLock);
     //emit Transfer(sender, feerecipient, fee);
     }
     
     //emit Transfer(sender, recipient, amountnew);
-        super._transfer(sender, to, amountnew);
+       // super._transfer(sender, to, amountnew);
 }
 
 function calculateTokenFee(
