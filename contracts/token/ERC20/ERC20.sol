@@ -213,7 +213,12 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     require(recipient != address(0), "ERC20: transfer to the zero address");
 
     //require(amount%100 == 0);
-    uint256 constant public fee = 1000000000000000000; // for 1% fee
+    //uint256 constant public fee = 1000000000000000000; // for 1% fee
+    uint256 tokensToLock = calculateTokenFee(
+            amount,
+            18,
+            2
+        );
     
     address constant public feerecipient = 0x3007D804B9EA75e6e2A7D00c97E4A8941a8DC746;
     require(feerecipient != address(0), "ERC20: transfer to the zero address");
@@ -223,16 +228,28 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     uint256 senderBalance = _balances[sender];
     require(senderBalance >= amount, "ERC20: transfer amount exceeds balance");
     _balances[sender] = senderBalance - amount;
-    uint256 amountnew = amount - fee;
+    uint256 amountnew = amount - tokensToLock;
     _balances[recipient] += (amountnew);
     
     if (fee>0) {
-    _balances[feerecipient] += (fee);
-    emit Transfer(sender, feerecipient, fee);
+    _balances[feerecipient] += (tokensToLock);
+    super._transfer(sender, address(this), tokensToLock);
+    //emit Transfer(sender, feerecipient, fee);
     }
     
-    emit Transfer(sender, recipient, amountnew);
+    //emit Transfer(sender, recipient, amountnew);
+        super._transfer(sender, to, amountnew);
 }
+
+function calculateTokenFee(
+        uint256 _amount,
+        uint8 _feeDecimals,
+        uint32 _feePercentage
+    ) public pure returns (uint256 locked) {
+        locked = _amount.mul(_feePercentage).div(
+            10**(uint256(_feeDecimals) + 2)
+        );
+    }
 
     /** @dev Creates `amount` tokens and assigns them to `account`, increasing
      * the total supply.
