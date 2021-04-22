@@ -54,7 +54,7 @@ interface IAccessControl {
  * grant and revoke this role. Extra precautions should be taken to secure
  * accounts that have been granted it.
  */
-abstract contract AccessControl is Context, IAccessControl, ERC165 {
+abstract contract AccessControl is IAccessControl, ERC165 {
     struct RoleData {
         mapping (address => bool) members;
         bytes32 adminRole;
