@@ -1,8 +1,8 @@
 // SPDX-License-Identifier:MIT
 // solhint-disable no-inline-assembly
-pragma solidity >=0.8.0;
+pragma solidity >=0.7.5;
 
-import "./IRelayRecipient.sol";
+import "./interfaces/IRelayRecipient.sol";
 
 /**
  * A base contract to be inherited by any contract that want to receive relayed transactions
