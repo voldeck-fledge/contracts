@@ -34,7 +34,7 @@ abstract contract BaseRelayRecipient is IRelayRecipient {
                 ret := shr(96,calldataload(sub(calldatasize(),20)))
             }
         } else {
-            return msg.sender;
+            return super.msg.sender;
         }
     }
 
@@ -48,9 +48,9 @@ abstract contract BaseRelayRecipient is IRelayRecipient {
      */
     function _msgData() internal virtual view override (Context) returns (bytes memory ret) {
         if (msg.data.length >= 20 && isTrustedForwarder(msg.sender)) {
-            return msg.data[0:msg.data.length-20];
+            return super.msg.data[0:msg.data.length-20];
         } else {
-            return msg.data;
+            return super.msg.data;
         }
     }
 }
