@@ -25,7 +25,7 @@ abstract contract BaseRelayRecipient is IRelayRecipient {
      * otherwise, return `msg.sender`.
      * should be used in the contract anywhere instead of msg.sender
      */
-    function _msgSender() internal override (Context) virtual view returns (address payable ret) {
+    function _msgSender() internal virtual view override (Context) returns (address payable ret) {
         if (msg.data.length >= 20 && isTrustedForwarder(msg.sender)) {
             // At this point we know that the sender is a trusted forwarder,
             // so we trust that the last bytes of msg.data are the verified sender address.
@@ -46,7 +46,7 @@ abstract contract BaseRelayRecipient is IRelayRecipient {
      * should be used in the contract instead of msg.data, where the difference matters (e.g. when explicitly
      * signing or hashing the
      */
-    function _msgData() internal override (Context) virtual view returns (bytes memory ret) {
+    function _msgData() internal virtual view override (Context) returns (bytes memory ret) {
         if (msg.data.length >= 20 && isTrustedForwarder(msg.sender)) {
             return msg.data[0:msg.data.length-20];
         } else {
