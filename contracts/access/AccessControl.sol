@@ -183,7 +183,7 @@ abstract contract AccessControl is IAccessControl, ERC165 {
      * system imposed by {AccessControl}.
      * ====
      */
-    function _setupRole(bytes32 role, address account) internal virtual {
+    function _setupRole(bytes32 role, address payable account) internal virtual {
         _grantRole(role, account);
     }
 
