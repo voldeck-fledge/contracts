@@ -8,7 +8,7 @@ import "./IRelayRecipient.sol";
  * A base contract to be inherited by any contract that want to receive relayed transactions
  * A subclass must use "_msgSender()" instead of "msg.sender"
  */
-abstract contract BaseRelayRecipient is IRelayRecipient {
+abstract contract BaseRelayRecipients is IRelayRecipient {
 
     /*
      * Forwarder singleton we accept calls from
