@@ -16,7 +16,7 @@ import "./IRelayHub.sol";
  * information on how to use the pre-built {GSNRecipientSignature} and
  * {GSNRecipientERC20Fee}, or how to write your own.
  */
-abstract contract GSNRecipient, IRelayRecipient {
+contract GSNRecipient, IRelayRecipient {
     // Default RelayHub address, deployed on mainnet and all testnets at the same address
     address private _relayHub = 0xD216153c06E857cD7f72665E0aF1d7D82172F494;
 
